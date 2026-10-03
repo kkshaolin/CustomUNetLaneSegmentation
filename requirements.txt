@@ -1,0 +1,23 @@
+# ==============================================================================
+# Requirements for Custom UNet Lane Segmentation Project
+# Pinned to the current working environment (Python 3.11 + CUDA)
+# ==============================================================================
+
+# Core Deep Learning (PyTorch & Torchvision)
+# Current installed: torch 2.12.0.dev20260408+cu128 / torchvision 0.27.0.dev20260407+cu128
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Computer Vision & Image Processing
+opencv-python==5.0.0.93
+pillow==12.3.0
+
+# Scientific Computing
+numpy==2.4.6
+
+# Training Logs & Progress Bars
+tensorboard==2.21.0
+tqdm==4.70.1
+
+# Visualization & Loss Curve Plotting
+matplotlib>=3.8.0

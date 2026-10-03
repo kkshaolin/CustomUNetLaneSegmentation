@@ -1,0 +1,38 @@
+#(สภาพแวดล้อม Python)
+.venv/
+
+#(ไฟล์แคชและคอมไพล์ของ Python)
+__pycache__/
+
+#(ไฟล์น้ำหนักโมเดลขนาดใหญ่)
+checkpoints/
+*.pt
+
+#(ไฟล์บันทึกประวัติการฝึกสอน)
+runs/
+events.out.tfevents.*
+*.log
+
+#(ผลลัพธ์ภาพ Mask จากการรัน Inference)
+run/
+
+# Datasets
+dataset/
+
+# IDE & Editor Specific Files (ไฟล์ตั้งค่าของโปรแกรมเขียนโค้ด)
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS Generated Files (ไฟล์ของระบบปฏิบัติการ)
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# README File
+README_forRun.md
+custom-unet-architecture.md
