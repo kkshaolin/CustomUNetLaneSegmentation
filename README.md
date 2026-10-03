@@ -52,7 +52,7 @@ $$
 - **โครงสร้าง:**
 
 $$
-\text{Input} \longrightarrow [\text{MaxPool2d } 2\times2 \ (\text{stride}=2)] \longrightarrow [\text{DoubleConv}(\text{in\_ch}, \text{out\_ch})] \longrightarrow \text{Output}
+\text{Input} \longrightarrow [\text{MaxPool2d } 2\times2 \ (\text{stride}=2)] \longrightarrow [\text{DoubleConv}(\text{in-ch}, \text{out-ch})] \longrightarrow \text{Output}
 $$
 
 - **เหตุผลประกอบการออกแบบ:**
@@ -65,7 +65,7 @@ $$
 - **โครงสร้าง:**
 
 $$
-\text{Input} \longrightarrow [\text{ConvTranspose2d } 2\times2 \ (\text{stride}=2)] \longrightarrow [\text{Concat with Skip}] \longrightarrow [\text{DoubleConv}(\text{out\_ch} \times 2, \text{out\_ch})] \longrightarrow \text{Output}
+\text{Input} \longrightarrow [\text{ConvTranspose2d } 2\times2 \ (\text{stride}=2)] \longrightarrow [\text{Concat with Skip}] \longrightarrow [\text{DoubleConv}(\text{out-ch} \times 2, \text{out-ch})] \longrightarrow \text{Output}
 $$
 
 - **เหตุผลประกอบการออกแบบ:**
