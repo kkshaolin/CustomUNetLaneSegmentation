@@ -36,7 +36,10 @@ python evaluate.py --images-dir dataset/images/test --labels-dir dataset/labels/
 #### 1. บล็อก DoubleConv (`DoubleConv`)
 ทำหน้าที่สกัดฟีเจอร์เชิงลึกในแต่ละระดับความละเอียด โดยรักษามิติภาพให้คงเดิมเสมอ
 - **โครงสร้าง:**
-   $$\text{Input} \longrightarrow [\text{Conv } 3\times3 \ (\text{pad}=1, \text{bias}=\text{False})] \longrightarrow [\text{BatchNorm2d}] \longrightarrow [\text{ReLU}(\text{inplace}=\text{True})] \longrightarrow [\text{Conv } 3\times3] \longrightarrow [\text{BatchNorm2d}] \longrightarrow [\text{ReLU}] \longrightarrow \text{Output}$$
+
+$$
+\text{Input} \longrightarrow [\text{Conv } 3\times3 \ (\text{pad}=1, \text{bias}=\text{False})] \longrightarrow [\text{BatchNorm2d}] \longrightarrow [\text{ReLU}(\text{inplace}=\text{True})] \longrightarrow [\text{Conv } 3\times3] \longrightarrow [\text{BatchNorm2d}] \longrightarrow [\text{ReLU}] \longrightarrow \text{Output}
+$$
 
 - **เหตุผลประกอบการออกแบบ:**
    - **การใช้ `padding=1` กับ Kernel $3\times3$:** จะช่วยรักษามิติขนาดภาพให้คงที่ ช่วยให้สามารถเชื่อมต่อฟีเจอร์ข้ามฝั่ง (Skip Connection) ได้โดยไม่ต้องตัดขอบภาพทิ้ง
@@ -46,13 +49,11 @@ python evaluate.py --images-dir dataset/images/test --labels-dir dataset/labels/
 
 #### 2. บล็อก Downsampling (`Down`)
 ทำหน้าที่ย่อขนาดมิติภาพในฝั่ง Encoder (Contracting Path) เพื่อขยายพื้นที่การมองเห็นของนิวรอน (Receptive Field)
-- **โครงสร้าง:** 
-   $$\text{Input} \longrightarrow
-  [\text{MaxPool2d } 2\times2 \
-  (\text{stride}=2)] \longrightarrow
-  [\text{DoubleConv}(\text{in\_ch},
-  \text{out\_ch})] \longrightarrow
-  \text{Output}$$
+- **โครงสร้าง:**
+
+$$
+\text{Input} \longrightarrow [\text{MaxPool2d } 2\times2 \ (\text{stride}=2)] \longrightarrow [\text{DoubleConv}(\text{in\_ch}, \text{out\_ch})] \longrightarrow \text{Output}
+$$
 
 - **เหตุผลประกอบการออกแบบ:**
   - **`MaxPool2d(2)`:**
@@ -61,14 +62,11 @@ python evaluate.py --images-dir dataset/images/test --labels-dir dataset/labels/
 
 #### 3. บล็อก Upsampling (`Up`)
 ทำหน้าที่ขยายขนาดมิติภาพในฝั่ง Decoder (Expansive Path) และผสานข้อมูลรายละเอียดตำแหน่งจากฝั่ง Encoder
-- **โครงสร้าง:** 
-   $$\text{Input} \longrightarrow
-  [\text{ConvTranspose2d } 2\times2 \
-  (\text{stride}=2)] \longrightarrow
-  [\text{Concat with Skip}] \longrightarrow
-  [\text{DoubleConv}(\text{out\_ch} \times 2,
-  \text{out\_ch})] \longrightarrow
-  \text{Output}$$
+- **โครงสร้าง:**
+
+$$
+\text{Input} \longrightarrow [\text{ConvTranspose2d } 2\times2 \ (\text{stride}=2)] \longrightarrow [\text{Concat with Skip}] \longrightarrow [\text{DoubleConv}(\text{out\_ch} \times 2, \text{out\_ch})] \longrightarrow \text{Output}
+$$
 
 - **เหตุผลประกอบการออกแบบ:**
   - **`ConvTranspose2d`:** ทำการ Upsample แบบที่สามารถเรียนรู้ค่าน้ำหนักได้ (Learnable Upsampling) ขยายมิติเชิงพื้นที่ขึ้น 2 เท่า และลดจำนวนช่องสัญญาณลงครึ่งหนึ่ง
@@ -152,7 +150,11 @@ flowchart TD
 
 ## กราฟของ Loss ที่แสดงการลู่เข้าของโมเดลที่ผ่านการเทรน
 ฟังก์ชัน Loss ที่ออกแบบไว้ในระบบ คือ
-$$\mathcal{L}_{\text{total}} = 0.5 \times \mathcal{L}_{\text{BCE}} + 0.5 \times \mathcal{L}_{\text{Dice}}$$
+
+$$
+\mathcal{L}_{\text{total}} = 0.5 \times \mathcal{L}_{\text{BCE}} + 0.5 \times \mathcal{L}_{\text{Dice}}
+$$
+
 - **Binary Cross-Entropy Loss ($\mathcal{L}_{\text{BCE}}$):** ทำหน้าที่ตรวจสอบความถูกต้องของการจำแนกระดับพิกเซล
 - **Dice Loss ($\mathcal{L}_{\text{Dice}}$):** มีเพื่อแก้ปัญหา **Class Imbalance** ในงาน Lane Segmentation ซึ่งพื้นที่ของเส้นเลนบนท้องถนนคิดเป็นสัดส่วนน้อยเมื่อเทียบกับพื้นหลัง
 
